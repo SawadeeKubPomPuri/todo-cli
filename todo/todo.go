@@ -78,7 +78,6 @@ func (t *TodoList) ToggleCompletion(index int) error {
 	if err := t.validateIndex(index); err != nil {
 		return err
 	}
-
 	todo := &(*t)[index]
 	if todo.Completed {
 		todo.CompletedAt = nil
@@ -87,7 +86,6 @@ func (t *TodoList) ToggleCompletion(index int) error {
 		todo.CompletedAt = &completionTime
 	}
 	todo.Completed = !todo.Completed
-
 	t.Save()
 	fmt.Println("🔄 Toggled Todo at index", index)
 	return nil
@@ -120,4 +118,15 @@ func (t *TodoList) PrintList() {
 	}
 
 	tbl.Render()
+}
+
+func (t *TodoList) Edit(index int, title string) error {
+	if err := t.validateIndex(index); err != nil {
+		println("Invalid index")
+		return err
+	}
+	(*t)[index].Title = title
+	t.Save()
+	fmt.Println("✏️ Edited Todo at index", index)
+	return nil
 }

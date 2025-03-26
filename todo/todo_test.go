@@ -88,6 +88,28 @@ func TestTodoList(t *testing.T) {
 		}
 	})
 
+	t.Run("Edit Todo", func(t *testing.T) {
+		setupTest(t)
+		defer teardownTest(t)
+
+		todoList := &TodoList{}
+		todoList.Add("Test Todo")
+
+		err := todoList.Edit(0, "Edited Todo")
+		if err != nil {
+			t.Errorf("unexpected error editing todo: %v", err)
+		}
+
+		if (*todoList)[0].Title != "Edited Todo" {
+			t.Errorf("expected 'Edited Todo', got '%s'", (*todoList)[0].Title)
+		}
+
+		err = todoList.Edit(1, "Invalid Index")
+		if err == nil {
+			t.Errorf("expected error editing invalid index, got nil")
+		}
+	})
+
 	t.Run("Save and Load", func(t *testing.T) {
 		setupTest(t)
 		defer teardownTest(t)
