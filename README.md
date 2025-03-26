@@ -5,6 +5,7 @@ A simple command-line todo list manager built with Go and Cobra.
 ## ✨ Features
 
 - ➕ **Add tasks** - Quickly capture new todo items
+- ✏️ **Edit tasks** - Modify an existing todo by specifying its index and new title  
 - ❌ **Delete tasks** - Remove completed or unwanted todos by index
 - 📋 **List tasks** - View all your todos in a clean, formatted table
 - ✅ **Toggle completion** - Mark todos as complete or incomplete
@@ -48,6 +49,7 @@ todo-cli <command> [arguments]
 | Command | Description | Example |
 |---------|-------------|---------|
 | `add <title>` | Add a new todo | `todo-cli add "Homework 1"` |
+| `edit <index> <title>` | edit a todo by index | `todo-cli edit 0 "HW 1"` |
 | `del <index>` | Delete a todo by index | `todo-cli del 2` |
 | `list` | List all todos | `todo-cli list` |
 | `tog <index>` | Toggle a todo's completion status | `todo-cli tog 1` |
@@ -62,11 +64,15 @@ Your todos are stored in `~/.todo-cli/todos.json` and automatically loaded when 
 ```
 todo-cli/
 ├── cmd/
-│   └── root.go
-├── internal/
-│   └── todo/
-│       ├── model.go
-│       └── storage.go
+│   ├── add.go
+│   ├── delete.go
+│   ├── edit.go
+│   ├── list.go
+│   ├── root.go
+│   └── toggle.go
+├── todo/
+│   ├── todo_test.go
+│   └── todo.go
 ├── main.go
 ├── go.mod
 └── go.sum
